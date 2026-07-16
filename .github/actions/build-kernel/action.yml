@@ -881,12 +881,7 @@ runs:
         cd "$KERNEL_PLATFORM_FOLDER"
         echo "Adding SukiSU Ultra..."
         
-        KSU_INPUT="${{ inputs.ksu_branch_or_hash }}"
-        if [ -z "$KSU_INPUT" ]; then
-          curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
-        else
-          curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s "$KSU_INPUT"
-        fi
+        curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
         
         git submodule update --init --recursive
         cd SukiSU-Ultra/kernel
