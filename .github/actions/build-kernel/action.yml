@@ -881,7 +881,7 @@ runs:
         cd "$KERNEL_PLATFORM_FOLDER"
         echo "Adding SukiSU Ultra..."
         
-        curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
+        curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s main
         
         git submodule update --init --recursive
         
