@@ -22,7 +22,7 @@ on:
       ksu_options:
         description: 'Enter KernelSU build json'
         required: true
-        default: '[{"type":"sukisu","hash":"susfs-dev"}]'   # ← 改默认
+        default: '[{"type":"sukisu","hash":""}]'
         type: string
       optimize_level:
         description: "Compiler optimization level"
