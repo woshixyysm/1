@@ -22,7 +22,7 @@ on:
       ksu_options:
         description: 'Enter KernelSU build json'
         required: true
-        default: '[{"type":"sukisu","hash":""}]'
+        default: '[{"type":"sukisu","hash":"main"}]'
         type: string
       optimize_level:
         description: "Compiler optimization level"
