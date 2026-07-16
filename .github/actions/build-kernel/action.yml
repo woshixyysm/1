@@ -885,7 +885,7 @@ runs:
         
         git submodule update --init --recursive
         
-        # SukiSU 可能 clone 到 KernelSU 目录
+        # 检测 SukiSU 实际目录名
         if [ -d "SukiSU-Ultra" ]; then
           SUKISU_DIR="SukiSU-Ultra"
         elif [ -d "KernelSU" ]; then
@@ -896,6 +896,7 @@ runs:
           exit 1
         fi
         
+        echo "Found SukiSU at: $SUKISU_DIR"
         cd "$SUKISU_DIR/kernel"
         
         COMMITS_COUNT=$(/usr/bin/git rev-list --count HEAD)
