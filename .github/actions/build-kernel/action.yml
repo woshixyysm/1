@@ -963,8 +963,22 @@ runs:
               patch -p1 --forward --fuzz=3 < "$KERNEL_PATCHES_FOLDER/next/susfs_fix_patches/$susfs_version/fix_selinux.c.patch"
               patch -p1 --forward --fuzz=3 < "$KERNEL_PATCHES_FOLDER/next/susfs_fix_patches/$susfs_version/fix_ksud.c.patch"
             else
-              cd "$KSU_FOLDER"
-              patch -p1 --forward --fuzz=3 < "$SUSFS_FOLDER/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch"
+                      # 检测 SukiSU/KSU 实际目录
+        if [ -d "$KSUN_FOLDER" ]; then
+          KSU_TARGET="$KSUN_FOLDER"
+        elif [ -d "$KSU_FOLDER" ]; then
+          KSU_TARGET="$KSU_FOLDER"
+        elif [ -d "$KERNEL_PLATFORM_FOLDER/SukiSU-Ultra" ]; then
+          KSU_TARGET="$KERNEL_PLATFORM_FOLDER/SukiSU-Ultra"
+        elif [ -d "$KERNEL_PLATFORM_FOLDER/KernelSU" ]; then
+          KSU_TARGET="$KERNEL_PLATFORM_FOLDER/KernelSU"
+        else
+          echo "::error::No KSU directory found"
+          exit 1
+        fi
+        
+        cd "$KSU_TARGET"
+        patch -p1 --forward < "$SUSFS_FOLDER/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch" || true
             fi
             ;;
           "v1.5.9"|"v1.5.10"|"v1.5.11"|"v1.5.12")
