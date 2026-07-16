@@ -17,23 +17,13 @@ on:
         required: true
         type: choice
         options:
-          - A14+15+16
-          - A15+16
-          - A14+15
           - A16
-          - A15
-          - A14
-          - android16-6.12
-          - android15-6.6
-          - android14-6.1
-          - android13-5.15
-          - android12-5.10
-        default: A14+15+16
+        default: A16
       ksu_options:
         description: 'Enter KernelSU build json'
         required: true
+        default: '[{"type":"sukisu","hash":"susfs-dev"}]'   # ← 改默认
         type: string
-        default: '[{"type":"ksun","hash":"dev"}]'
       optimize_level:
         description: "Compiler optimization level"
         required: true
