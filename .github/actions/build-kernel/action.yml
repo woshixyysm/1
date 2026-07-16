@@ -884,7 +884,19 @@ runs:
         curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s susfs-dev
         
         git submodule update --init --recursive
-        cd SukiSU-Ultra/kernel
+        
+        # SukiSU 可能 clone 到 KernelSU 目录
+        if [ -d "SukiSU-Ultra" ]; then
+          SUKISU_DIR="SukiSU-Ultra"
+        elif [ -d "KernelSU" ]; then
+          SUKISU_DIR="KernelSU"
+        else
+          echo "::error::SukiSU directory not found"
+          ls -la
+          exit 1
+        fi
+        
+        cd "$SUKISU_DIR/kernel"
         
         COMMITS_COUNT=$(/usr/bin/git rev-list --count HEAD)
         BASE_VERSION=30000
@@ -913,7 +925,7 @@ runs:
         echo "SukiSU Ultra Version: $KSU_VERSION"
         echo "✅ SukiSU Ultra added (commit: ${KSU_COMMIT_SHA:0:8})"
         echo "::endgroup::"
-
+        
     - name: Apply SUSFS Patches
       shell: bash
       if: ${{ env.OP_SUSFS == 'true' }}
