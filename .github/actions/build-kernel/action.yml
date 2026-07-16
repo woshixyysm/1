@@ -879,26 +879,14 @@ runs:
         set -euo pipefail
         echo "::group::Add SukiSU Ultra"
         cd "$KERNEL_PLATFORM_FOLDER"
-        echo "Adding SukiSU Ultra..."
+        echo "Adding SukiSU Ultra (builtin branch)..."
         
-        curl --fail --location --proto '=https' -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU-Ultra/main/kernel/setup.sh" | bash -s main
+        # 直接 clone builtin 分支
+        git clone --depth=1 -b builtin https://github.com/SukiSU-Ultra/SukiSU-Ultra.git SukiSU-Ultra
         
-        git submodule update --init --recursive
+        cd SukiSU-Ultra/kernel
         
-        # 检测 SukiSU 实际目录名
-        if [ -d "SukiSU-Ultra" ]; then
-          SUKISU_DIR="SukiSU-Ultra"
-        elif [ -d "KernelSU" ]; then
-          SUKISU_DIR="KernelSU"
-        else
-          echo "::error::SukiSU directory not found"
-          ls -la
-          exit 1
-        fi
-        
-        echo "Found SukiSU at: $SUKISU_DIR"
-        cd "$SUKISU_DIR/kernel"
-        
+        # 版本号
         COMMITS_COUNT=$(/usr/bin/git rev-list --count HEAD)
         BASE_VERSION=30000
         KSU_VERSION=$(expr $COMMITS_COUNT "+" $BASE_VERSION)
